@@ -1,0 +1,8 @@
+parameters:
+  api.rule.class: AppBundle\Entity\Rule
+  api.rule.handler.class: AppBundle\Handler\RuleHandler
+
+services:
+  api.rule.handler:
+    class: "%api.rule.handler.class%"
+    arguments: [@doctrine.orm.entity_manager, "%api.rule.class%"]
