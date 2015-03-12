@@ -36,7 +36,8 @@ class RuleType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Rule'
+            'data_class' => 'AppBundle\Entity\Rule',
+            'csrf_protection' => false
         ));
     }
 

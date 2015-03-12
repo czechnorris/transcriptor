@@ -5,9 +5,12 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\Rule;
+use AppBundle\Form\RuleType;
 use AppBundle\Handler\RuleHandler;
 use FOS\RestBundle\Controller\FOSRestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
@@ -21,19 +24,24 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class RulesController extends FOSRestController {
 
     /**
-     * @ApiDoc(
-     *  resource = true,
-     *  description = "Gets a Rule for a given id",
-     *  output = "\AppBundle\Entity\Rule",
-     *  statusCodes = {
-     *      200 = "Returned when successful",
-     *      404 = "Returned when the rule is not found"
-     *  }
-     * )
+     * Get rules matching the given parameters
+     *
+     * @Rest\View()
+     *
+     * @return array
+     */
+    public function getRulesAction(Request $request) {
+        $searchParams = $this->getSearchParameters($request);
+        $rules = $this->getRuleHandler()->search($searchParams);
+        return ['rules' => $rules];
+    }
+
+    /**
+     * Get rule with the given id
+     *
      * @Rest\View
      *
      * @param $id
-     *
      * @return array
      *
      * @throws NotFoundHttpException when rule does not exist
@@ -47,12 +55,79 @@ class RulesController extends FOSRestController {
     }
 
     /**
+     * Create new rule
+     *
+     * @Rest\View
+     *
+     * @param Request $request Request
+     * @return View|Response
+     */
+    public function postRuleAction(Request $request) {
+        return $this->processForm(new Rule(), $request);
+    }
+
+    /**
+     * Update rule with the given id
+     *
+     * @Rest\View
+     *
+     * @param Request $request Request
+     * @param int     $id      Rule id
+     * @return View|Response
+     */
+    public function putRuleAction(Request $request, $id) {
+        $rule = $this->getRuleHandler()->get($id);
+        return $this->processForm($rule, $request);
+    }
+
+    /**
+     * Delete rule with the given id
+     *
+     * @Rest\View(statusCode = 204)
+     *
+     * @param $id
+     * @return View
+     */
+    public function deleteRuleAction($id) {
+        $this->getRuleHandler()->remove($id);
+    }
+
+    /**
      * Get the RuleHandler
      *
      * @return RuleHandler
      */
     private function getRuleHandler() {
         return $this->container->get('api.rule.handler');
+    }
+
+    private function processForm(Rule $rule, Request $request) {
+        $statusCode = $rule->getId() ? 204 : 201;
+
+        $form = $this->createForm(new RuleType(), $rule);
+        $form->submit($request->get('rule'));
+        if ($form->isValid()) {
+            $rule = $this->getRuleHandler()->update($form->getData());
+
+            $response = new Response();
+            $response->setStatusCode($statusCode);
+            if ($statusCode == 201) {
+                $response->headers->set('Location',
+                    $this->generateUrl('api_1_get_rule', ['id' => $rule->getId()], true)
+                );
+            }
+
+            return $response;
+        }
+
+        return View::create($form, 400);
+    }
+
+    private function getSearchParameters(Request $request) {
+        return array_intersect_key(
+            $request->query->all(),
+            array_flip(RuleHandler::$allowedSearchParams)
+        );
     }
 
 }

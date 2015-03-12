@@ -6,6 +6,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rule entity
@@ -29,24 +30,28 @@ class Rule {
     /**
      * @var string
      * @ORM\Column(type="string", length=5)
+     * @Assert\Length(min="2", max="5")
      */
     private $sourceLanguage;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=5)
+     * @Assert\Length(min="2", max="5")
      */
     private $targetLanguage;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="1", max="255")
      */
     private $pattern;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max="255")
      */
     private $replacement;
 
