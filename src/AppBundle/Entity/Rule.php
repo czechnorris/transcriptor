@@ -29,14 +29,14 @@ class Rule {
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", name="source_language", length=5)
      * @Assert\Length(min="2", max="5")
      */
     private $sourceLanguage;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", name="target_language", length=5)
      * @Assert\Length(min="2", max="5")
      */
     private $targetLanguage;

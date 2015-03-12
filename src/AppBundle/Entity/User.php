@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  *
  * @ORM\Entity
- * @ORM\Table
+ * @ORM\Table(name="user")
  */
 class User {
 
