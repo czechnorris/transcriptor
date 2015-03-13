@@ -28,6 +28,7 @@ class RulesController extends FOSRestController {
      *
      * @Rest\View()
      *
+     * @param Request $request Request
      * @return array
      */
     public function getRulesAction(Request $request) {
@@ -101,6 +102,13 @@ class RulesController extends FOSRestController {
         return $this->container->get('api.rule.handler');
     }
 
+    /**
+     * Validate and persist entity using form
+     *
+     * @param Rule    $rule    Rule object
+     * @param Request $request Request
+     * @return View|Response
+     */
     private function processForm(Rule $rule, Request $request) {
         $statusCode = $rule->getId() ? 204 : 201;
 
@@ -123,6 +131,12 @@ class RulesController extends FOSRestController {
         return View::create($form, 400);
     }
 
+    /**
+     * Get search parameters from the request
+     *
+     * @param Request $request Request
+     * @return array
+     */
     private function getSearchParameters(Request $request) {
         return array_intersect_key(
             $request->query->all(),
