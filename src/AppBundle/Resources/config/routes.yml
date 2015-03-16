@@ -3,3 +3,8 @@ app_Rule:
     prefix: /v1
     resource: "AppBundle\Controller\RulesController"
     name_prefix:  api_1_ # naming collision
+app_Transcription:
+    type: rest
+    prefix: /v1
+    resource: "AppBundle\Controller\TranscriptionsController"
+    name_prefix: api_1_
