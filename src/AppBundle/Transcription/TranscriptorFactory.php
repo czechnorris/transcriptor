@@ -4,6 +4,7 @@
  */
 
 namespace AppBundle\Transcription;
+use Symfony\Component\DependencyInjection\Container;
 
 
 /**
@@ -16,18 +17,30 @@ class TranscriptorFactory {
 
     const SIMPLE = 'simple';
 
+    /** @var  Container */
+    private $container;
+
+    /**
+     * The constructor
+     *
+     * @param \Symfony\Component\DependencyInjection\Container $container
+     */
+    public function __construct(Container $container) {
+        $this->container = $container;
+    }
+
     /**
      * Get transcriptor instance of the given type
      *
      * @param string $type Transcriptor type
      * @return Transcriptor
      */
-    public static function getInstance($type = self::SIMPLE) {
-        switch ($type) {
-            case self::SIMPLE:
-            default:
-                return new SimpleTranscriptor();
+    public function getInstance($type = self::SIMPLE) {
+        $instance = $this->container->get('api.transcription.transcriptor.' . $type, Container::NULL_ON_INVALID_REFERENCE);
+        if (!$instance instanceof Transcriptor) {
+            $instance = $this->container->get('api.transcription.transcriptor.' . self::SIMPLE);
         }
+        return $instance;
     }
 
 }

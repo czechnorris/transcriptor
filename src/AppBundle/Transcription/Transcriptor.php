@@ -15,11 +15,12 @@ interface Transcriptor {
 
     /**
      * Transcript the given text from source to target language.
+     * Returns an array of possible transcriptions.
      *
      * @param string $text           Text to transcript
      * @param string $sourceLanguage Source language
      * @param string $targetLanguage Target language
-     * @return string
+     * @return array
      */
     public function transcript($text, $sourceLanguage, $targetLanguage);
 

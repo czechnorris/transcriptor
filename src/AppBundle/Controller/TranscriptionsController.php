@@ -6,6 +6,7 @@
 namespace AppBundle\Controller;
 use AppBundle\Transcription\TranscriptorFactory;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\Exception\ValidationFailedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
  * @package AppBundle\Controller
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
-class TranscriptionsController {
+class TranscriptionsController extends FOSRestController {
 
     private static $mandatoryParameters = [
         'sourceLanguage',
@@ -37,9 +38,9 @@ class TranscriptionsController {
     public function getTranscriptionAction(Request $request) {
         try {
             list($sourceLanguage, $targetLanguage, $text) = $this->getParameters($request);
-            $transcriptor = TranscriptorFactory::getInstance();
-            $transcription = $transcriptor->transcript($text, $sourceLanguage, $targetLanguage);
-            return ['transcription' => $transcription];
+            $transcriptor = $this->getTranscriptorFactory()->getInstance();
+            $transcriptions = $transcriptor->transcript($text, $sourceLanguage, $targetLanguage);
+            return ['transcriptions' => $transcriptions];
         } catch (ValidationFailedException $e) {
             return View::create(['errors' => $e->getConstraintViolationList()], 400);
         }
@@ -78,6 +79,15 @@ class TranscriptionsController {
         if (!empty($violations)) {
             throw new ValidationFailedException(new ConstraintViolationList($violations));
         }
+    }
+
+    /**
+     * Get the transcriptor factory
+     *
+     * @return TranscriptorFactory
+     */
+    private function getTranscriptorFactory() {
+        return $this->container->get('api.transcription.factory');
     }
 
 }

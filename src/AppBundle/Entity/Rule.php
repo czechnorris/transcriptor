@@ -135,4 +135,14 @@ class Rule {
         $this->replacement = $replacement;
     }
 
+    /**
+     * Apply the rule to the given input and return result.
+     *
+     * @param string $input The input text
+     * @return string
+     */
+    public function apply($input) {
+        return preg_replace('/' . $this->getPattern() . '/', $this->getReplacement(), $input);
+    }
+
 }

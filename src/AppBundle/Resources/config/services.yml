@@ -1,8 +1,17 @@
 parameters:
   api.rule.class: AppBundle\Entity\Rule
   api.rule.handler.class: AppBundle\Handler\RuleHandler
+  api.transcription.factory.class: AppBundle\Transcription\TranscriptorFactory
+  api.transcription.transcriptor.simple.class: AppBundle\Transcription\SimpleTranscriptor
 
 services:
   api.rule.handler:
     class: "%api.rule.handler.class%"
     arguments: [@doctrine.orm.entity_manager, "%api.rule.class%"]
+  api.transcription.factory:
+    class: "%api.transcription.factory.class%"
+    arguments: [@service_container]
+  api.transcription.transcriptor.simple:
+    class: "%api.transcription.transcriptor.simple.class%"
+    arguments: [@api.rule.handler]
+    load: lazy
