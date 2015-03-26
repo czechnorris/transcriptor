@@ -13,9 +13,7 @@ use AppBundle\Transcription\TreeTranscriptor\Tree;
  * @package AppBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
-class TreeTranscriptor implements Transcriptor {
-
-    const TOKEN_PATTERN = '/[\s]*[^\s]+/';
+class TreeTranscriptor extends TokenizingTranscriptor {
 
     /** @var RuleHandler */
     private $ruleHandler;
@@ -41,7 +39,7 @@ class TreeTranscriptor implements Transcriptor {
      * @param string $targetLanguage Target language
      * @return array
      */
-    public function transcript($text, $sourceLanguage, $targetLanguage) {
+    public function doTranscript($text, $sourceLanguage, $targetLanguage) {
         $tree = $this->getTree($sourceLanguage, $targetLanguage);
         $result = '';
         foreach ($this->tokenize($text) as $token) {
@@ -82,17 +80,6 @@ class TreeTranscriptor implements Transcriptor {
             $tree->processRule($rule->getPattern(), $rule->getReplacement());
         }
         return $tree;
-    }
-
-    /**
-     * Tokenize the string
-     *
-     * @param string $text Text to tokenize
-     * @return array
-     */
-    private function tokenize($text) {
-        preg_match_all(self::TOKEN_PATTERN, $text, $tokens);
-        return $tokens[0];
     }
 
 }

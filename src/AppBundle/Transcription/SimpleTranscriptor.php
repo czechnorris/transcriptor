@@ -13,9 +13,7 @@ use AppBundle\Handler\RuleHandler;
  * @package AppBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
-class SimpleTranscriptor implements Transcriptor {
-
-    const TOKEN_PATTERN = '/[\s]*[^\s]+/';
+class SimpleTranscriptor extends TokenizingTranscriptor {
 
     /** @var RuleHandler */
     private $ruleHandler;
@@ -38,7 +36,7 @@ class SimpleTranscriptor implements Transcriptor {
      * @param string $targetLanguage Target language
      * @return array
      */
-    public function transcript($text, $sourceLanguage, $targetLanguage) {
+    public function doTranscript($text, $sourceLanguage, $targetLanguage) {
         $rulesToIpa = $this->ruleHandler->search([
             'sourceLanguage' => $sourceLanguage,
             'targetLanguage' => 'ipa'
@@ -51,17 +49,6 @@ class SimpleTranscriptor implements Transcriptor {
             $result .= $token;
         }
         return [$result];
-    }
-
-    /**
-     * Tokenize the string
-     *
-     * @param $text
-     * @return array
-     */
-    private function tokenize($text) {
-        preg_match_all(self::TOKEN_PATTERN, $text, $tokens);
-        return $tokens[0];
     }
 
 }
