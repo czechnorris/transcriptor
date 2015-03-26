@@ -8,6 +8,19 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+    /**
+     * Constructor.
+     *
+     * @param string $environment The environment
+     * @param bool   $debug       Whether to enable debugging or not
+     *
+     * @api
+     */
+    public function __construct($environment, $debug) {
+        mb_internal_encoding('UTF-8');
+        parent::__construct($environment, $debug);
+    }
+
     public function registerBundles()
     {
         $bundles = array(

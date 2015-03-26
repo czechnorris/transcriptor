@@ -38,7 +38,7 @@ class TranscriptionsController extends FOSRestController {
     public function getTranscriptionAction(Request $request) {
         try {
             list($sourceLanguage, $targetLanguage, $text) = $this->getParameters($request);
-            $transcriptor = $this->getTranscriptorFactory()->getInstance();
+            $transcriptor = $this->getTranscriptorFactory()->getInstance($request->get('method', null));
             $transcriptions = $transcriptor->transcript($text, $sourceLanguage, $targetLanguage);
             return ['transcriptions' => $transcriptions];
         } catch (ValidationFailedException $e) {

@@ -3,6 +3,7 @@ parameters:
   api.rule.handler.class: AppBundle\Handler\RuleHandler
   api.transcription.factory.class: AppBundle\Transcription\TranscriptorFactory
   api.transcription.transcriptor.simple.class: AppBundle\Transcription\SimpleTranscriptor
+  api.transcription.transcriptor.tree.class: AppBundle\Transcription\TreeTranscriptor
 
 services:
   api.rule.handler:
@@ -13,5 +14,9 @@ services:
     arguments: [@service_container]
   api.transcription.transcriptor.simple:
     class: "%api.transcription.transcriptor.simple.class%"
+    arguments: [@api.rule.handler]
+    load: lazy
+  api.transcription.transcriptor.tree:
+    class: "%api.transcription.transcriptor.tree.class%"
     arguments: [@api.rule.handler]
     load: lazy
