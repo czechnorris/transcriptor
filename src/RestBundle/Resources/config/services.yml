@@ -1,9 +1,9 @@
 parameters:
-  api.rule.class: AppBundle\Entity\Rule
-  api.rule.handler.class: AppBundle\Handler\RuleHandler
-  api.transcription.factory.class: AppBundle\Transcription\TranscriptorFactory
-  api.transcription.transcriptor.simple.class: AppBundle\Transcription\SimpleTranscriptor
-  api.transcription.transcriptor.tree.class: AppBundle\Transcription\TreeTranscriptor
+  api.rule.class: RestBundle\Entity\Rule
+  api.rule.handler.class: RestBundle\Handler\RuleHandler
+  api.transcription.factory.class: RestBundle\Transcription\TranscriptorFactory
+  api.transcription.transcriptor.simple.class: RestBundle\Transcription\SimpleTranscriptor
+  api.transcription.transcriptor.tree.class: RestBundle\Transcription\TreeTranscriptor
 
 services:
   api.rule.handler:

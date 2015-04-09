@@ -3,12 +3,12 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription;
+namespace RestBundle\Transcription;
 
 /**
  * Transcriptor interface
 
- * @package AppBundle\Transcription
+ * @package RestBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 interface Transcriptor {

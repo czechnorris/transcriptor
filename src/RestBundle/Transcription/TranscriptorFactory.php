@@ -3,14 +3,14 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription;
+namespace RestBundle\Transcription;
 use Symfony\Component\DependencyInjection\Container;
 
 
 /**
  * Class TranscriptorFactory
  
- * @package AppBundle\Transcription
+ * @package RestBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class TranscriptorFactory {

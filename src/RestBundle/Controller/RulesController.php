@@ -3,10 +3,10 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Controller;
-use AppBundle\Entity\Rule;
-use AppBundle\Form\RuleType;
-use AppBundle\Handler\RuleHandler;
+namespace RestBundle\Controller;
+use RestBundle\Entity\Rule;
+use RestBundle\Form\RuleType;
+use RestBundle\Handler\RuleHandler;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 /**
  * RulesController
  
- * @package AppBundle\Controller
+ * @package RestBundle\Controller
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class RulesController extends FOSRestController {

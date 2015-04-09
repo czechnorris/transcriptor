@@ -3,15 +3,15 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Handler;
-use AppBundle\Entity\Rule;
+namespace RestBundle\Handler;
+use RestBundle\Entity\Rule;
 use Doctrine\Common\Persistence\ObjectManager;
 
 
 /**
  * Class RuleHandler
  
- * @package AppBundle\Handler
+ * @package RestBundle\Handler
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class RuleHandler {

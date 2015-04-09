@@ -3,14 +3,14 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription;
-use AppBundle\Handler\RuleHandler;
+namespace RestBundle\Transcription;
+use RestBundle\Handler\RuleHandler;
 
 
 /**
  * Class SimpleTranscriptor
  
- * @package AppBundle\Transcription
+ * @package RestBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class SimpleTranscriptor extends TokenizingTranscriptor {
@@ -21,7 +21,7 @@ class SimpleTranscriptor extends TokenizingTranscriptor {
     /**
      * The constructor.
      *
-     * @param \AppBundle\Handler\RuleHandler $ruleHandler
+     * @param \RestBundle\Handler\RuleHandler $ruleHandler
      */
     public function __construct(RuleHandler $ruleHandler) {
         $this->ruleHandler = $ruleHandler;

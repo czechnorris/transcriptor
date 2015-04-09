@@ -3,14 +3,14 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Entity;
+namespace RestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User entity
  *
- * @package AppBundle\Entity
+ * @package RestBundle\Entity
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  *
  * @ORM\Entity

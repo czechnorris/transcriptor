@@ -3,13 +3,13 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription;
+namespace RestBundle\Transcription;
 
 
 /**
  * Class TokenizingTranscriptor
  
- * @package AppBundle\Transcription
+ * @package RestBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 abstract class TokenizingTranscriptor implements Transcriptor {

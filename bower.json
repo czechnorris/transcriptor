@@ -1,0 +1,7 @@
+{
+  "name": "transcriptor",
+  "directory": "web/vendor",
+  "dependencies": {
+    "angular-material": "*"
+  }
+}

@@ -3,8 +3,8 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Controller;
-use AppBundle\Transcription\TranscriptorFactory;
+namespace RestBundle\Controller;
+use RestBundle\Transcription\TranscriptorFactory;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * Class TranscriptionsController
  
- * @package AppBundle\Controller
+ * @package RestBundle\Controller
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class TranscriptionsController extends FOSRestController {

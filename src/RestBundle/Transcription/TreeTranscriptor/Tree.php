@@ -3,12 +3,12 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription\TreeTranscriptor;
+namespace RestBundle\Transcription\TreeTranscriptor;
 
 /**
  * Transcription tree
 
- * @package AppBundle\Transcription\TreeTranscriptor
+ * @package RestBundle\Transcription\TreeTranscriptor
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class Tree

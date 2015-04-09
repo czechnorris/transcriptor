@@ -3,7 +3,7 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Entity;
+namespace RestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Rule entity
  *
- * @package AppBundle\Entity
+ * @package RestBundle\Entity
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  *
  * @ORM\Entity

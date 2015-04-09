@@ -3,14 +3,14 @@
  * This file is part of the transcriptor project.
  */
 
-namespace AppBundle\Transcription;
-use AppBundle\Handler\RuleHandler;
-use AppBundle\Transcription\TreeTranscriptor\Tree;
+namespace RestBundle\Transcription;
+use RestBundle\Handler\RuleHandler;
+use RestBundle\Transcription\TreeTranscriptor\Tree;
 
 /**
  * Class TreeTranscriptor
 
- * @package AppBundle\Transcription
+ * @package RestBundle\Transcription
  * @author  Petr Pokorný <petr@petrpokorny.cz>
  */
 class TreeTranscriptor extends TokenizingTranscriptor {
@@ -24,7 +24,7 @@ class TreeTranscriptor extends TokenizingTranscriptor {
     /**
      * The constructor.
      *
-     * @param \AppBundle\Handler\RuleHandler $ruleHandler
+     * @param \RestBundle\Handler\RuleHandler $ruleHandler
      */
     public function __construct(RuleHandler $ruleHandler) {
         $this->ruleHandler = $ruleHandler;
