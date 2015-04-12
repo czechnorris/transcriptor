@@ -2,6 +2,7 @@
     "name": "pokorny/transcriptor",
     "license": "MIT",
     "description": "Language phonetic transcriptor web application",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },

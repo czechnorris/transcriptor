@@ -1,10 +1,15 @@
 app_Rule:
     type: rest
     prefix: /v1
-    resource: "RestBundle\Controller\RulesController"
+    resource: RestBundle\Controller\RulesController
     name_prefix:  api_1_ # naming collision
 app_Transcription:
     type: rest
     prefix: /v1
-    resource: "RestBundle\Controller\TranscriptionsController"
+    resource: RestBundle\Controller\TranscriptionsController
+    name_prefix: api_1_
+app_Language:
+    type: rest
+    prefix: /v1
+    resource: RestBundle\Controller\LanguagesController
     name_prefix: api_1_

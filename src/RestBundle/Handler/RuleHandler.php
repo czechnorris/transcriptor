@@ -24,6 +24,9 @@ class RuleHandler {
         'replacement'
     ];
 
+    /** @var \Doctrine\ORM\EntityRepository */
+    private $repository;
+
     /**
      * The constructor
      *
@@ -89,6 +92,19 @@ class RuleHandler {
             $this->om->remove($rule);
             $this->om->flush();
         }
+    }
+
+    /**
+     * Get all possible languages
+     *
+     * @return array
+     */
+    public function getLanguages() {
+        $query = $this->repository->createQueryBuilder('rule')->select('rule.sourceLanguage')->distinct(true)->getQuery();
+        $languages = $query->execute();
+        return array_map(function($row) {
+            return $row['sourceLanguage'];
+        }, $languages);
     }
 
 }
