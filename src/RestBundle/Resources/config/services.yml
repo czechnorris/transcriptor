@@ -1,6 +1,8 @@
 parameters:
   api.rule.class: RestBundle\Entity\Rule
   api.rule.handler.class: RestBundle\Handler\RuleHandler
+  api.user.class: RestBundle\Entity\User
+  api.user.handler.class: RestBundle\Handler\UserHandler
   api.transcription.factory.class: RestBundle\Transcription\TranscriptorFactory
   api.transcription.transcriptor.simple.class: RestBundle\Transcription\SimpleTranscriptor
   api.transcription.transcriptor.tree.class: RestBundle\Transcription\TreeTranscriptor
@@ -9,6 +11,9 @@ services:
   api.rule.handler:
     class: "%api.rule.handler.class%"
     arguments: [@doctrine.orm.entity_manager, "%api.rule.class%"]
+  api.user.handler:
+      class: "%api.user.handler.class%"
+      arguments: [@doctrine.orm.entity_manager, "%api.user.class%"]
   api.transcription.factory:
     class: "%api.transcription.factory.class%"
     arguments: [@service_container]
