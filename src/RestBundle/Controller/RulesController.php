@@ -9,6 +9,7 @@ use RestBundle\Form\RuleType;
 use RestBundle\Handler\RuleHandler;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -59,6 +60,7 @@ class RulesController extends FOSRestController {
      * Create new rule
      *
      * @Rest\View
+     * @Security("is_authenticated()")
      *
      * @param Request $request Request
      * @return View|Response
@@ -71,6 +73,7 @@ class RulesController extends FOSRestController {
      * Update rule with the given id
      *
      * @Rest\View
+     * @Security("is_authenticated()")
      *
      * @param Request $request Request
      * @param int     $id      Rule id
@@ -85,6 +88,7 @@ class RulesController extends FOSRestController {
      * Delete rule with the given id
      *
      * @Rest\View(statusCode = 204)
+     * @Security("is_authenticated()")
      *
      * @param $id
      * @return View
