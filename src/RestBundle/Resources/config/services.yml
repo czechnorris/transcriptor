@@ -10,7 +10,7 @@ parameters:
 services:
   api.rule.handler:
     class: "%api.rule.handler.class%"
-    arguments: [@doctrine.orm.entity_manager, "%api.rule.class%"]
+    arguments: [@doctrine.orm.entity_manager, "%api.rule.class%", @security.token_storage]
   api.user.handler:
       class: "%api.user.handler.class%"
       arguments: [@doctrine.orm.entity_manager, "%api.user.class%"]

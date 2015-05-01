@@ -4,8 +4,11 @@
  */
 
 namespace RestBundle\Handler;
+use RestBundle\Entity\Change;
 use RestBundle\Entity\Rule;
 use Doctrine\Common\Persistence\ObjectManager;
+use RestBundle\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 
 /**
@@ -27,16 +30,20 @@ class RuleHandler {
     /** @var \Doctrine\ORM\EntityRepository */
     private $repository;
 
+    /** @var  TokenStorage */
+    private $tokenStorage;
+
     /**
      * The constructor
      *
      * @param ObjectManager $om          Object manager
      * @param string        $entityClass Entity class
      */
-    public function __construct(ObjectManager $om, $entityClass) {
+    public function __construct(ObjectManager $om, $entityClass, $tokenStorage) {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -64,15 +71,18 @@ class RuleHandler {
      * Update or create the given rule
      * Returns the persisted object
      *
-     * @param Rule $rule Rule
+     * @param Rule   $rule    Rule
+     * @param string $comment Change comment
      *
      * @return Rule
      */
-    public function update(Rule $rule) {
+    public function update(Rule $rule, $comment) {
+        $this->createChangeLog($rule->getId(), $rule, $comment);
         if (!$rule->getId()) {
             $this->om->persist($rule);
         } else {
             $this->om->merge($rule);
+            $this->om->persist($rule);
         }
         $this->om->flush();
 
@@ -83,13 +93,14 @@ class RuleHandler {
      * Delete rule with the given id
      * No operation is done if the rule does not exist
      *
-     * @param $id
-     * @return void
+     * @param int    $id      Identifier of the rule to remove
+     * @param string $comment Change comment
      */
-    public function remove($id) {
+    public function remove($id, $comment) {
         $rule = $this->repository->find($id);
         if ($rule) {
             $this->om->remove($rule);
+            $this->createChangeLog($id, null, $comment);
             $this->om->flush();
         }
     }
@@ -105,6 +116,39 @@ class RuleHandler {
         return array_map(function($row) {
             return $row['sourceLanguage'];
         }, $languages);
+    }
+
+    /**
+     * Create change log for the update
+     *
+     * @param int    $oldId   Id of the old rule or null for creation
+     * @param Rule   $rule    Updated rule or null for deletion
+     * @param string $comment Change comment
+     */
+    private function createChangeLog($oldId, Rule $rule = null, $comment) {
+        $this->om->detach($rule);
+        $oldRule = $oldId ? $this->get($oldId) : null;
+        $change = new Change();
+        $change->setComment($comment);
+        $change->setCreatedOn(new \DateTime());
+        $change->setOriginalPattern($oldRule ? $oldRule->getPattern() : null);
+        $change->setOriginalReplacement($oldRule ? $oldRule->getReplacement() : null);
+        $change->setNewPattern($rule ? $rule->getPattern() : null);
+        $change->setNewReplacement($rule ? $rule->getReplacement() : null);
+        $change->setRule($rule ? $rule : $oldRule);
+        $change->setUser($this->getUser());
+        $this->om->persist($change);
+    }
+
+    /**
+     * Get the current user
+     *
+     * @return User
+     */
+    private function getUser() {
+        $user = $this->tokenStorage->getToken()->getUser();
+        $this->om->refresh($user);
+        return $user;
     }
 
 }

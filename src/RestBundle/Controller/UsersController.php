@@ -44,7 +44,7 @@ class UsersController extends FOSRestController {
      * Get user with the given id
      *
      * @Rest\View
-     * @Security("is_authenticated")
+     * @Security("is_authenticated()")
      *
      * @param $id
      * @return array

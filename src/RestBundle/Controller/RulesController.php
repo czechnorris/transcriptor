@@ -90,11 +90,12 @@ class RulesController extends FOSRestController {
      * @Rest\View(statusCode = 204)
      * @Security("is_authenticated()")
      *
-     * @param $id
+     * @param Request $request Request
+     * @param int     $id      Rule id
      * @return View
      */
-    public function deleteRuleAction($id) {
-        $this->getRuleHandler()->remove($id);
+    public function deleteRuleAction(Request $request, $id) {
+        $this->getRuleHandler()->remove($id, $request->get('comment'));
     }
 
     /**
@@ -118,8 +119,9 @@ class RulesController extends FOSRestController {
 
         $form = $this->createForm(new RuleType(), $rule);
         $form->submit($request->get('rule'));
+        $comment = $request->get('comment');
         if ($form->isValid()) {
-            $rule = $this->getRuleHandler()->update($form->getData());
+            $rule = $this->getRuleHandler()->update($form->getData(), $comment);
 
             $response = new Response();
             $response->setStatusCode($statusCode);

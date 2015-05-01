@@ -37,11 +37,11 @@ class Change {
     private $user;
 
     /**
-     * @var int
+     * @var Rule
      * @ORM\ManyToOne(targetEntity="Rule")
      * @ORM\JoinColumn(name="rule_id", referencedColumnName="id")
      */
-    private $ruleId;
+    private $rule;
 
     /**
      * @var string
@@ -109,19 +109,19 @@ class Change {
     }
 
     /**
-     * @return int
+     * @return Rule
      */
-    public function getRuleId()
+    public function getRule()
     {
-        return $this->ruleId;
+        return $this->rule;
     }
 
     /**
-     * @param int $ruleId
+     * @param Rule $rule
      */
-    public function setRuleId($ruleId)
+    public function setRule($rule)
     {
-        $this->ruleId = $ruleId;
+        $this->rule = $rule;
     }
 
     /**
