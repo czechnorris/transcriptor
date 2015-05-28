@@ -32,4 +32,19 @@ app.controller('TranscriptionCtrl', function($scope, $http) {
             $scope.targetText = data.transcriptions[0];
         });
     }
+
+    $scope.getRules = function() {
+        if (!$scope.sourceLanguage || !$scope.targetLanguage) {
+            return;
+        }
+        $http.get('api/v1/rules.json', {
+            'params': {
+                'sourceLanguage': $scope.sourceLanguage,
+                'targetLanguage': $scope.targetLanguage
+            }
+        }).success(function(data) {
+            $scope.rules = data.rules;
+        });
+    }
+
 });

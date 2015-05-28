@@ -4,12 +4,18 @@
         <md-select flex placeholder="Pick" ng-model="sourceLanguage" ng-change="getRules()">
             <md-option ng-repeat="language in languages" value="{{language.value}}">{{language.label}}</md-option>
         </md-select>
-        <textarea ng-model="sourceText" ng-change="transcribe()"></textarea>
     </md-content>
     <md-content layout="column" flex id="targetBox">
         <md-select flex placeholder="Pick" ng-model="targetLanguage" ng-change="getRules()">
             <md-option ng-repeat="language in languages" value="{{language.value}}">{{language.label}}</md-option>
         </md-select>
-        <textarea ng-model="targetText"></textarea>
     </md-content>
 </div>
+<md-content layout="column" flex>
+    <md-list>
+        <md-list-item ng-repeat="rule in rules" layout="row">
+            <div flex>{{rule.pattern}}</div>
+            <div flex>{{rule.replacement}}</div>
+        </md-list-item>
+    </md-list>
+</md-content>

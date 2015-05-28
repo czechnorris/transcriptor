@@ -29,4 +29,15 @@ class IndexController extends Controller {
     public function indexAction() {
     }
 
+    /**
+     * Rules action
+     *
+     * @Route("/rules", name="rules")
+     * @Template(engine="php")
+     *
+     * @return Response
+     */
+    public function rulesAction() {
+    }
+
 }
