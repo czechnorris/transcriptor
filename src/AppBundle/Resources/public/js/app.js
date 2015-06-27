@@ -31,7 +31,7 @@ app.controller('TranscriptionCtrl', function($scope, $http) {
         }).success(function(data) {
             $scope.targetText = data.transcriptions[0];
         });
-    }
+    };
 
     $scope.getRules = function() {
         if (!$scope.sourceLanguage || !$scope.targetLanguage) {
@@ -45,6 +45,24 @@ app.controller('TranscriptionCtrl', function($scope, $http) {
         }).success(function(data) {
             $scope.rules = data.rules;
         });
-    }
+    };
+
+    $scope.toggleEditRule = function(rule) {
+        if (rule.hasOwnProperty('editMode') && rule.editMode) {
+            rule.editMode = false;
+        } else {
+            rule.editMode = true;
+        }
+    };
+
+    $scope.editRule = function(rule) {
+        $http.put('api/v1/rules/' + rule.id + '.json', {
+            'rule': rule
+        }).success(function() {
+            $http.get('api/v1/rules/' + rule.id + '.json').success(function(data) {
+                rule = data.rule;
+            });
+        });
+    };
 
 });

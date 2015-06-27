@@ -1,3 +1,8 @@
+body {
+    height: auto;
+    min-height: 100%;
+}
+
 .menuBtn {
     background-color: transparent;
     border: none;
@@ -13,6 +18,10 @@ md-list .md-button {
     font-weight: 500;
     text-align: left;
     width: 100%;
+}
+
+md-list-item:nth-child(2n) {
+    background-color: #eeeeee;
 }
 
 /* Using Data-URI converted from svg until <md-icon> becomes available
