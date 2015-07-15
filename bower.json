@@ -2,6 +2,6 @@
   "name": "transcriptor",
   "directory": "web/vendor",
   "dependencies": {
-    "angular-material": "*"
+    "angular-material": "0.9.8"
   }
 }

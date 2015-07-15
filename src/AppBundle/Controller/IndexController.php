@@ -40,4 +40,15 @@ class IndexController extends Controller {
     public function rulesAction() {
     }
 
+    /**
+     * Sign in action
+     *
+     * @Route("/signin", name="signin")
+     *
+     * @return Response
+     */
+    public function signInAction() {
+        return new Response(json_encode($this->getUser()));
+    }
+
 }

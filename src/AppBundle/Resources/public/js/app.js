@@ -1,6 +1,9 @@
 var app = angular.module('TranscriptorApp', ['ngMaterial']);
 
-app.controller('TranscriptionCtrl', function($scope, $http) {
+app.controller('TranscriptionCtrl', function($scope, $http, $window) {
+
+    $scope.user = $window.sessionStorage.getItem('user');
+
     $http.get('api/v1/languages.json').success(function (data) {
         $scope.languages = [];
         data.languages.forEach(function(language) {
@@ -56,6 +59,7 @@ app.controller('TranscriptionCtrl', function($scope, $http) {
     };
 
     $scope.editRule = function(rule) {
+        delete rule.editMode;
         $http.put('api/v1/rules/' + rule.id + '.json', {
             'rule': rule
         }).success(function() {
@@ -63,6 +67,15 @@ app.controller('TranscriptionCtrl', function($scope, $http) {
                 rule = data.rule;
             });
         });
+    };
+
+    $scope.login = function() {
+        $http.get('api/v1/users/me.json')
+            .success(function(data) {
+                $window.sessionStorage.setItem('user', data.user);
+                $scope.user = data.user;
+                return true;
+            });
     };
 
 });

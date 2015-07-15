@@ -24,6 +24,7 @@
         </md-toolbar>
         <div layout="row" flex>
             <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+                <md-button ng-click="login()" ng-if="!user">Sign in</md-button>
                 <md-button ng-href="<?php echo $view->get('router')->generate('index');?>">Home</md-button>
                 <md-button ng-href="<?php echo $view->get('router')->generate('rules');?>">Rules</md-button>
             </md-sidenav>

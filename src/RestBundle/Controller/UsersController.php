@@ -13,6 +13,7 @@ use RestBundle\Entity\User;
 use RestBundle\Form\UserType;
 use RestBundle\Handler\UserHandler;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
@@ -41,8 +42,24 @@ class UsersController extends FOSRestController {
     }
 
     /**
+     * Get the authenticated user
+     *
+     * @Rest\Route("/users/me")
+     * @Rest\View
+     * @Security("is_authenticated()")
+     *
+     * @return array
+     */
+    public function getMeAction() {
+        /** @var User $user */
+        $user = $this->getUser();
+        return ['user' => $user];
+    }
+
+    /**
      * Get user with the given id
      *
+     * @Rest\Route("/users/{id}", requirements={"id": "\d+"})
      * @Rest\View
      * @Security("is_authenticated()")
      *
