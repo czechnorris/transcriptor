@@ -41,14 +41,14 @@ class IndexController extends Controller {
     }
 
     /**
-     * Sign in action
+     * Register action
      *
-     * @Route("/signin", name="signin")
+     * @Route("/register", name="register")
+     * @Template(engine="php")
      *
      * @return Response
      */
-    public function signInAction() {
-        return new Response(json_encode($this->getUser()));
+    public function registerAction() {
     }
 
 }

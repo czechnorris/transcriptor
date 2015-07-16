@@ -1,6 +1,6 @@
-var app = angular.module('TranscriptorApp', ['ngMaterial']);
+var app = angular.module('TranscriptorApp', ['ngMaterial', 'base64']);
 
-app.controller('TranscriptionCtrl', function($scope, $http, $window) {
+app.controller('TranscriptionCtrl', function($scope, $http, $window, $base64) {
 
     $scope.user = $window.sessionStorage.getItem('user');
 
@@ -77,5 +77,22 @@ app.controller('TranscriptionCtrl', function($scope, $http, $window) {
                 return true;
             });
     };
+
+    $scope.registerUser = function(newuser) {
+        if (newuser.password != newuser.repeatPassword) {
+            alert("Password does not match.");
+            return false;
+        }
+        delete newuser.repeatPassword;
+        $http.post('api/v1/users.json', {
+            'user': newuser
+        }).success(function(data, status, headers) {
+            $http.defaults.headers.common.Authorization = 'Basic ' + $base64.encode(newuser.email + ':' + newuser.password);
+            $http.get(headers('Location') + '.json').success(function(data) {
+                $window.sessionStorage.setItem('user', data.user);
+                $scope.user = data.user;
+            });
+        });
+    }
 
 });

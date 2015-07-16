@@ -2,6 +2,7 @@
   "name": "transcriptor",
   "directory": "web/vendor",
   "dependencies": {
-    "angular-material": "0.9.8"
+    "angular-material": "0.9.8",
+    "angular-base64": "master"
   }
 }
