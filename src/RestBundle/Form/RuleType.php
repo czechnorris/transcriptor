@@ -23,6 +23,7 @@ class RuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id')
             ->add('sourceLanguage')
             ->add('targetLanguage')
             ->add('pattern')

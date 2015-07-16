@@ -6,6 +6,7 @@
 namespace RestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,6 +32,7 @@ class Rule {
      * @var string
      * @ORM\Column(type="string", name="source_language", length=5)
      * @Assert\Length(min="2", max="5")
+     * @SerializedName("sourceLanguage")
      */
     private $sourceLanguage;
 
@@ -38,6 +40,7 @@ class Rule {
      * @var string
      * @ORM\Column(type="string", name="target_language", length=5)
      * @Assert\Length(min="2", max="5")
+     * @SerializedName("targetLanguage")
      */
     private $targetLanguage;
 
